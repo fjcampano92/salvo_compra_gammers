@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\FernandoJavier\\source\\repos\\Salvo\\Salvo\\Salvo.csproj": {}
+    "D:\\ProyectoSalvo\\salvo_compra_gammers\\Salvo\\Salvo\\Salvo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\FernandoJavier\\source\\repos\\Salvo\\Salvo\\Salvo.csproj": {
+    "D:\\ProyectoSalvo\\salvo_compra_gammers\\Salvo\\Salvo\\Salvo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\FernandoJavier\\source\\repos\\Salvo\\Salvo\\Salvo.csproj",
+        "projectUniqueName": "D:\\ProyectoSalvo\\salvo_compra_gammers\\Salvo\\Salvo\\Salvo.csproj",
         "projectName": "Salvo",
-        "projectPath": "C:\\Users\\FernandoJavier\\source\\repos\\Salvo\\Salvo\\Salvo.csproj",
+        "projectPath": "D:\\ProyectoSalvo\\salvo_compra_gammers\\Salvo\\Salvo\\Salvo.csproj",
         "packagesPath": "C:\\Users\\FernandoJavier\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\FernandoJavier\\source\\repos\\Salvo\\Salvo\\obj\\",
+        "outputPath": "D:\\ProyectoSalvo\\salvo_compra_gammers\\Salvo\\Salvo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -52,6 +52,16 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
             }
           },
           "imports": [
