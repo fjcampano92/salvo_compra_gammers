@@ -50,6 +50,7 @@ namespace Salvo.Models
                 var games = new Game[]
                 {
                     new Game {CreationDate = DateTime.Now},
+                    new Game {CreationDate = DateTime.Now.AddHours(1)},
                     new Game {CreationDate = DateTime.Now.AddHours(2)},
                     new Game {CreationDate = DateTime.Now.AddHours(3)},
                     new Game {CreationDate = DateTime.Now.AddHours(4)},
