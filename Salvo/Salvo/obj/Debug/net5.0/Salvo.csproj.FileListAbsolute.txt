@@ -213,3 +213,4 @@ D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\ref\Salvo.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.pdb
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.genruntimeconfig.cache
+D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.csproj.AssemblyReference.cache
