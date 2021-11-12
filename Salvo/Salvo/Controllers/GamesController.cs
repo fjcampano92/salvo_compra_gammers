@@ -40,7 +40,8 @@ namespace Salvo.Controllers
                             {
                                 Id = gp.PlayerId,
                                 Email = gp.Player.Email
-                            }
+                            }, //si es distinto de null devuelve (double=)gp.GetScore().Point y si no devuelve null
+                            Point = gp.GetScore() != null ? (double?)gp.GetScore().Point : null
                         }).ToList()
                     }).ToList();
                 return Ok(games);
