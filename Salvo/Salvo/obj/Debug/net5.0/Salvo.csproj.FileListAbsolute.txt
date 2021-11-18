@@ -68,8 +68,6 @@ C:\Disco F\PROYECTO_SALVO\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salv
 C:\Disco F\PROYECTO_SALVO\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\ref\Salvo.dll
 C:\Disco F\PROYECTO_SALVO\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.pdb
 C:\Disco F\PROYECTO_SALVO\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.genruntimeconfig.cache
-D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\appsettings.Development.json
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\appsettings.json
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\Salvo.exe
@@ -177,14 +175,17 @@ D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\unix
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.csproj.AssemblyReference.cache
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.GeneratedMSBuildEditorConfig.editorconfig
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.AssemblyInfoInputs.cache
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.AssemblyInfo.cs
@@ -213,4 +214,3 @@ D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\ref\Salvo.dll
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.pdb
 D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.genruntimeconfig.cache
-D:\ProyectoSalvo\salvo_compra_gammers\Salvo\Salvo\obj\Debug\net5.0\Salvo.csproj.AssemblyReference.cache

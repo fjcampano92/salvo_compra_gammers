@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Salvo.Models;
 using Salvo.Repositories;
 using System;
@@ -12,6 +13,7 @@ namespace Salvo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GamesController : ControllerBase
     {
         private IGameRepository _repository;
@@ -21,13 +23,19 @@ namespace Salvo.Controllers
         }
         // GET: api/<GamesController>
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             try
             {
-                //nosotros necesitamos devolver una lista de games
-                //que finalmente es una lista de gamesDTO
-                var games = _repository.GetAllGamesWhitPlayers()
+                //creamos el gameListDTO que tiene parametros email y una coleccion de games
+                //para asignar la lista usamos GetAllGamesWithPlayers
+                //utilizamos el select para selecionar
+                //retornamos la coleccion gamelist
+                GameListDTO gameList = new GameListDTO
+                {
+                    Email = User.FindFirst("Player") != null ? User.FindFirst("Player").Value : "Guest",
+                    Games = _repository.GetAllGamesWhitPlayers()
                     .Select(g => new GameDTO
                     {
                         Id = g.Id,
@@ -43,8 +51,10 @@ namespace Salvo.Controllers
                             }, //si es distinto de null devuelve (double=)gp.GetScore().Point y si no devuelve null
                             Point = gp.GetScore() != null ? (double?)gp.GetScore().Point : null
                         }).ToList()
-                    }).ToList();
-                return Ok(games);
+                    }).ToList()
+                };
+
+                return Ok(gameList);
             }
             catch(Exception ex)
             {
