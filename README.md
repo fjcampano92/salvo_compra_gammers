@@ -1,4 +1,4 @@
-# salvo_compra_gammers
+# Proyecto Salvo
 
 El objetivo del proyecto es la creación de una versión online del famoso juego batalla naval, donde el usuario podrá enfrentarse a otros usuarios. 
 Para ello se crear una API RESTfull que permita administrar los recursos de la aplicación (como juegos, jugadores y puntuaciones) para que un front-end 
