@@ -13,6 +13,15 @@ namespace Salvo.Repositories
         {
 
         }
+
+        public Game FindById(long id)
+        {
+            return FindByCondition(game => game.Id == id) //del game el Id debe ser igual al id que pasamos por parametro
+                .Include(game => game.GamePlayers) //del game que incluya los gameplayers
+                    .ThenInclude(gp => gp.Player) //de nuestro gameplayer de nuestro game entonces incluye al player
+                .FirstOrDefault(); //de todo esto retorname el primero o el por defecto
+        }
+
         public IEnumerable<Game> GetAllGames()
         {
             return FindAll() //retornamos todos los elementos de forma ordenada mediante su fecha de creacion en forma de lista.

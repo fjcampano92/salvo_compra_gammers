@@ -17,10 +17,12 @@ namespace Salvo.Controllers
     public class GamesPlayersController : ControllerBase
     {
         private IGamePlayerRepository _repository;
+        private IPlayerRepository _playerRepository;
 
-        public GamesPlayersController(IGamePlayerRepository repository)
+        public GamesPlayersController(IGamePlayerRepository repository, IPlayerRepository playerRepository)
         {
             _repository = repository;
+            _playerRepository = playerRepository;
         }
 
         // GET api/<GamesPlayersController>/5
@@ -29,7 +31,13 @@ namespace Salvo.Controllers
         {
             try
             {
+                string email = User.FindFirst("Player") != null ? User.FindFirst("Player").Value : "Guest";
+                //obtencion del gp
                 var gp = _repository.GetGamePlayerView(id);
+                //verificar si el gp corresponde al mismo email del usuario autenticado
+                if (gp.Player.Email != email)
+                    return Forbid();
+
                 var gameView = new GameViewDTO
                 {
                     Id = gp.Id,
@@ -72,6 +80,43 @@ namespace Salvo.Controllers
                 };
 
                 return Ok(gameView);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("{id}/ships")]
+        public IActionResult Post(long id, [FromBody] List<ShipDTO> ships)
+        {
+            try
+            {
+                string email = User.FindFirst("Player") != null ? User.FindFirst("Player").Value : "Guest";
+                Player player = _playerRepository.FindByEmail(email);
+
+                GamePlayer gamePlayer = _repository.FindById(id);
+                if (gamePlayer == null)
+                    return StatusCode(403, "El juego no existe");
+                //gamePlayer.Player.Id != player.Id
+                if (gamePlayer.Player.Email != email)
+                    return StatusCode(403, "El usuario no se encuentra en el juego");
+                if(gamePlayer.Ships.Count == 5)
+                    return StatusCode(403, "Ya se posicionaron todos los barcos");
+
+                gamePlayer.Ships = ships.Select(ship => new Ship
+                {
+                    GamePlayerId = gamePlayer.Id,
+                    Type = ship.Type,
+                    Locations = ship.Locations.Select(location => new ShipLocation{
+                        ShipId = ship.Id,
+                        Location = location.Location
+                    }).ToList()
+                }).ToList();
+                
+                _repository.Save(gamePlayer);
+                return StatusCode(201);
+
             }
             catch(Exception ex)
             {

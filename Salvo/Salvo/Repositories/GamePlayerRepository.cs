@@ -11,6 +11,14 @@ namespace Salvo.Repositories
     {
         public GamePlayerRepository(SalvoContext repositoryContext) : base(repositoryContext) { }
 
+        public GamePlayer FindById(long id)
+        {
+            return FindByCondition(gp => gp.Id == id)
+                .Include(gp => gp.Player)
+                .Include(gp => gp.Ships)
+                .FirstOrDefault();
+        }
+
         public GamePlayer GetGamePlayerView(long idGamePlayer)
         {
             return FindAll(source => source.Include(gamePlayer => gamePlayer.Ships)
@@ -32,6 +40,15 @@ namespace Salvo.Repositories
                 .Where(gamePlayer => gamePlayer.Id == idGamePlayer)
                 .OrderBy(game => game.JoinDate)
                 .FirstOrDefault();
+        }
+
+        public void Save(GamePlayer gamePlayer)
+        {
+            if (gamePlayer.Id == 0)
+                Create(gamePlayer);
+            else
+                Update(gamePlayer);
+            SaveChanges();
         }
     }
 }
