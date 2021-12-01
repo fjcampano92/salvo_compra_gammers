@@ -14,9 +14,16 @@ namespace Salvo.Repositories
         public GamePlayer FindById(long id)
         {
             return FindByCondition(gp => gp.Id == id)
-                .Include(gp => gp.Player)
-                .Include(gp => gp.Ships)
-                .FirstOrDefault();
+                     .Include(gp => gp.Game)
+                       .ThenInclude(game => game.GamePlayers.Where(gp => gp.Id != id))
+                         .ThenInclude(gp => gp.Salvos)
+                     .Include(gp => gp.Game)
+                       .ThenInclude(game => game.GamePlayers.Where(gp => gp.Id != id))
+                         .ThenInclude(gp => gp.Ships)
+                     .Include(gp => gp.Player)
+                     .Include(gp => gp.Ships)
+                     .Include(gp => gp.Salvos)
+                   .FirstOrDefault();
         }
 
         public GamePlayer GetGamePlayerView(long idGamePlayer)
@@ -49,6 +56,6 @@ namespace Salvo.Repositories
             else
                 Update(gamePlayer);
             SaveChanges();
-        }
+        }     
     }
 }

@@ -81,7 +81,7 @@ namespace Salvo.Controllers
 
                 return Ok(gameView);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
@@ -98,27 +98,90 @@ namespace Salvo.Controllers
                 GamePlayer gamePlayer = _repository.FindById(id);
                 if (gamePlayer == null)
                     return StatusCode(403, "El juego no existe");
-                //gamePlayer.Player.Id != player.Id
-                if (gamePlayer.Player.Email != email)
+                
+                if (gamePlayer.Player.Id != player.Id)
                     return StatusCode(403, "El usuario no se encuentra en el juego");
-                if(gamePlayer.Ships.Count == 5)
+                if (gamePlayer.Ships.Count == 5)
                     return StatusCode(403, "Ya se posicionaron todos los barcos");
 
                 gamePlayer.Ships = ships.Select(ship => new Ship
                 {
                     GamePlayerId = gamePlayer.Id,
                     Type = ship.Type,
-                    Locations = ship.Locations.Select(location => new ShipLocation{
+                    Locations = ship.Locations.Select(location => new ShipLocation
+                    {
                         ShipId = ship.Id,
                         Location = location.Location
                     }).ToList()
                 }).ToList();
-                
+
                 _repository.Save(gamePlayer);
                 return StatusCode(201);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("{id}/salvos")]
+        public IActionResult PostSalvo(long id, [FromBody] SalvoDTO salvo)
+        {
+            try
+            {
+                string email = User.FindFirst("Player") != null ? User.FindFirst("Player").Value : "Guest";
+                Player player = _playerRepository.FindByEmail(email);
+
+                var gamePlayer = _repository.FindById(id);
+                
+                if (gamePlayer == null)
+                    return StatusCode(403, "No existe el juego");
+                if (gamePlayer.Player.Id != player.Id)
+                    return StatusCode(403, "El usuario no se encuentra en el juego");
+                //if (gameplayer.Ships.Count != 5)
+                //    return StatusCode(403, "No se han posicionado los barcos");
+
+                GamePlayer opponent = gamePlayer.getOpponent();
+
+                if (gamePlayer.Game.GamePlayers.Count() != 2)
+                    return StatusCode(403, "No hay otro jugador");
+
+                //opponent = _repository.FindById(opponent.Id);
+
+                if (gamePlayer.Ships.Count() == 0)
+                    return StatusCode(403, "El usuario no ha posicionado los barcos");
+
+                if (opponent.Ships.Count() == 0)
+                    return StatusCode(403, "El oponente no ha posicionado los barcos");
+
+                int playerTurn = 0;
+                int opponentTurn = 0;
+
+                playerTurn = gamePlayer.Salvos != null ? gamePlayer.Salvos.Count() + 1 : 1;
+
+                if (opponent != null) 
+                    opponentTurn = opponent.Salvos != null ? opponent.Salvos.Count() : 0;
+
+                if ((playerTurn - opponentTurn) < -1 || (playerTurn - opponentTurn) > 1)
+                    return StatusCode(403, "No se puede adelantar un turno");
+
+                gamePlayer.Salvos.Add(new Models.Salvo
+                {
+                    GamePlayerId = gamePlayer.Id,
+                    Turn = playerTurn,
+                    Locations = salvo.Locations.Select(location => new SalvoLocation
+                    {
+                        SalvoId = salvo.Id,
+                        Location = location.Location
+                    }).ToList()
+                });
+
+                _repository.Save(gamePlayer);
+
+                return StatusCode(201, gamePlayer.Id);
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
