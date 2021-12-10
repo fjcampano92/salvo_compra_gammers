@@ -18,11 +18,13 @@ namespace Salvo.Controllers
     {
         private IGamePlayerRepository _repository;
         private IPlayerRepository _playerRepository;
+        private IScoreRepository _scoreRepository;
 
-        public GamesPlayersController(IGamePlayerRepository repository, IPlayerRepository playerRepository)
+        public GamesPlayersController(IGamePlayerRepository repository, IPlayerRepository playerRepository, IScoreRepository scoreRepository)
         {
             _repository = repository;
             _playerRepository = playerRepository;
+            _scoreRepository = scoreRepository;
         }
 
         // GET api/<GamesPlayersController>/5
@@ -80,7 +82,8 @@ namespace Salvo.Controllers
                     Hits = gp.GetHits(),
                     HitsOpponent = gp.getOpponent()?.GetHits(),
                     Sunks = gp.GetSunks(),
-                    SunksOpponent = gp.getOpponent()?.GetSunks()
+                    SunksOpponent = gp.getOpponent()?.GetSunks(),
+                    GameState = Enum.GetName(typeof(GameState), gp.GetGameState())
                 };
 
                 return Ok(gameView);
@@ -146,6 +149,13 @@ namespace Salvo.Controllers
                 //if (gameplayer.Ships.Count != 5)
                 //    return StatusCode(403, "No se han posicionado los barcos");
 
+                //obtenemos el GameState
+                GameState gameState = gamePlayer.GetGameState();
+
+                if (gameState == GameState.LOSS || gameState == GameState.WIN || gameState == GameState.TIE)
+                    return StatusCode(403, "El juego terminó");
+                
+
                 GamePlayer opponent = gamePlayer.getOpponent();
 
                 if (gamePlayer.Game.GamePlayers.Count() != 2)
@@ -182,6 +192,67 @@ namespace Salvo.Controllers
                 });
 
                 _repository.Save(gamePlayer);
+
+                gameState = gamePlayer.GetGameState();
+
+                if(gameState == GameState.WIN)
+                {
+                    Score score = new Score
+                    {
+                        FinishDate = DateTime.Now,
+                        GameId = gamePlayer.GameId,
+                        PlayerId = gamePlayer.PlayerId,
+                        Point = 1
+                    };
+                    _scoreRepository.Save(score);
+
+                    Score scoreOpponent = new Score
+                    {
+                        FinishDate = DateTime.Now,
+                        GameId = gamePlayer.GameId,
+                        PlayerId = opponent.PlayerId,
+                        Point = 0
+                    };
+                    _scoreRepository.Save(scoreOpponent);
+                } else if (gameState == GameState.LOSS)
+                {
+                    Score score = new Score
+                    {
+                        FinishDate = DateTime.Now,
+                        GameId = gamePlayer.GameId,
+                        PlayerId = gamePlayer.PlayerId,
+                        Point = 0
+                    };
+                    _scoreRepository.Save(score);
+
+                    Score scoreOpponent = new Score
+                    {
+                        FinishDate = DateTime.Now,
+                        GameId = gamePlayer.GameId,
+                        PlayerId = opponent.PlayerId,
+                        Point = 1
+                    };
+                    _scoreRepository.Save(scoreOpponent);
+                } else if (gameState == GameState.TIE)
+                {
+                    Score score = new Score
+                    {
+                        FinishDate = DateTime.Now,
+                        GameId = gamePlayer.GameId,
+                        PlayerId = gamePlayer.PlayerId,
+                        Point = 0.5
+                    };
+                    _scoreRepository.Save(score);
+
+                    Score scoreOpponent = new Score
+                    {
+                        FinishDate = DateTime.Now,
+                        GameId = gamePlayer.GameId,
+                        PlayerId = opponent.PlayerId,
+                        Point = 0.5
+                    };
+                    _scoreRepository.Save(scoreOpponent);
+                }
 
                 return StatusCode(201, gamePlayer.Id);
             }

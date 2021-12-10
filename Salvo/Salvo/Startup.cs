@@ -29,11 +29,13 @@ namespace Salvo
         {
             services.AddRazorPages();
             //inyeccion de dependencia para salvo context
-            services.AddDbContext<SalvoContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SalvoDataBase")));
+            services.AddDbContext<SalvoContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SalvoDataBase"),
+                 o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
             //inyectar repositorio de game
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IGamePlayerRepository, GamePlayerRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IScoreRepository, ScoreRepository>();
             //Aqui debemos seguir agregando los scoped (de ser necesario)
 
             //Autenticacion
